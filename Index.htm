@@ -1,1 +1,838 @@
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sporting Villette Handball</title>
+<meta name="description" content="Sporting Villette Handball - Retrouvez toutes les équipes, calendriers, actualités et résultats du club.">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    :root {
+        --noir: #080808;
+        --noir-clair: #151515;
+        --rouge: #e30613;
+        --rouge-fonce: #b5000b;
+        --blanc: #ffffff;
+        --gris: #f4f4f4;
+        --gris-texte: #666666;
+    }
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--blanc);
+        color: var(--noir);
+        line-height: 1.5;
+    }
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+    /* =========================
+       HEADER
+    ========================= */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: var(--noir);
+        color: white;
+        box-shadow: 0 3px 15px rgba(0,0,0,0.25);
+    }
+    .navbar {
+        max-width: 1200px;
+        margin: auto;
+        height: 80px;
+        padding: 0 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: bold;
+    }
+    .logo-icon {
+        width: 48px;
+        height: 48px;
+        background: var(--rouge);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
+    }
+    .logo-text {
+        line-height: 1.05;
+    }
+    .logo-text strong {
+        display: block;
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
+    .logo-text span {
+        font-size: 13px;
+        color: var(--rouge);
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+    nav a {
+        font-size: 14px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    nav a:hover,
+    nav a.active {
+        color: var(--rouge);
+    }
+    .menu-button {
+        display: none;
+        font-size: 28px;
+        cursor: pointer;
+    }
+    /* =========================
+       HERO
+    ========================= */
+    .hero {
+        min-height: 570px;
+        background:
+            linear-gradient(
+                90deg,
+                rgba(0,0,0,0.95) 0%,
+                rgba(0,0,0,0.78) 45%,
+                rgba(0,0,0,0.25) 100%
+            ),
+            url("https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1800&q=80")
+            center/cover;
+        color: white;
+        display: flex;
+        align-items: center;
+    }
+    .hero-content {
+        width: 1200px;
+        max-width: 100%;
+        margin: auto;
+        padding: 60px 25px;
+    }
+    .hero-label {
+        color: var(--rouge);
+        font-size: 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 15px;
+    }
+    .hero h1 {
+        font-size: clamp(45px, 7vw, 80px);
+        line-height: 0.95;
+        max-width: 750px;
+        text-transform: uppercase;
+        margin-bottom: 25px;
+    }
+    .hero h1 span {
+        color: var(--rouge);
+    }
+    .hero p {
+        font-size: 21px;
+        max-width: 600px;
+        color: #eeeeee;
+        margin-bottom: 35px;
+    }
+    .hero-buttons {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    .button {
+        display: inline-block;
+        padding: 14px 25px;
+        border-radius: 6px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .button-red {
+        background: var(--rouge);
+        color: white;
+    }
+    .button-red:hover {
+        background: var(--rouge-fonce);
+        transform: translateY(-2px);
+    }
+    .button-outline {
+        border: 2px solid white;
+        color: white;
+    }
+    .button-outline:hover {
+        background: white;
+        color: var(--noir);
+    }
+    /* =========================
+       SECTION
+    ========================= */
+    section {
+        padding: 80px 25px;
+    }
+    .container {
+        max-width: 1200px;
+        margin: auto;
+    }
+    .section-header {
+        margin-bottom: 40px;
+    }
+    .section-title {
+        font-size: 38px;
+        font-weight: 800;
+        text-transform: uppercase;
+        position: relative;
+        padding-left: 18px;
+    }
+    .section-title::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 4px;
+        width: 6px;
+        height: 40px;
+        background: var(--rouge);
+    }
+    .section-subtitle {
+        color: var(--gris-texte);
+        margin-top: 8px;
+        padding-left: 18px;
+    }
+    /* =========================
+       EQUIPES
+    ========================= */
+    .teams {
+        background: var(--gris);
+    }
+    .teams-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+    .team-card {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        transition: 0.3s;
+    }
+    .team-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+    .team-image {
+        height: 170px;
+        background:
+            linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.4)),
+            url("https://images.unsplash.com/photo-1518605368461-1e4e3d5f3f48?auto=format&fit=crop&w=800&q=80")
+            center/cover;
+    }
+    .team-content {
+        padding: 22px;
+    }
+    .team-content h3 {
+        font-size: 23px;
+        margin-bottom: 15px;
+    }
+    .team-content p {
+        color: var(--gris-texte);
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    .team-button {
+        display: inline-block;
+        background: var(--noir);
+        color: white;
+        padding: 10px 17px;
+        border-radius: 5px;
+        font-size: 13px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .team-button:hover {
+        background: var(--rouge);
+    }
+    /* =========================
+       MATCHS
+    ========================= */
+    .matches-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 40px;
+    }
+    .matches {
+        background: white;
+    }
+    .match-list {
+        border: 1px solid #e5e5e5;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .match {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        border-bottom: 1px solid #eeeeee;
+    }
+    .match:last-child {
+        border-bottom: none;
+    }
+    .match-date {
+        min-width: 65px;
+        text-align: center;
+        background: var(--noir);
+        color: white;
+        padding: 10px 5px;
+        border-radius: 5px;
+    }
+    .match-date strong {
+        display: block;
+        font-size: 22px;
+    }
+    .match-date span {
+        font-size: 11px;
+        text-transform: uppercase;
+    }
+    .match-info {
+        flex: 1;
+    }
+    .match-info strong {
+        display: block;
+        font-size: 16px;
+    }
+    .match-info span {
+        color: var(--gris-texte);
+        font-size: 13px;
+    }
+    .match-team {
+        color: var(--rouge);
+        font-weight: bold;
+        font-size: 13px;
+    }
+    /* =========================
+       ACTUALITES
+    ========================= */
+    .news {
+        background: var(--gris);
+    }
+    .news-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+    .news-card {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+    }
+    .news-image {
+        height: 180px;
+        background:
+            url("https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=800&q=80")
+            center/cover;
+    }
+    .news-content {
+        padding: 20px;
+    }
+    .news-date {
+        color: var(--rouge);
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .news-content h3 {
+        margin: 8px 0;
+        font-size: 19px;
+    }
+    .news-content p {
+        color: var(--gris-texte);
+        font-size: 14px;
+    }
+    /* =========================
+       CTA
+    ========================= */
+    .cta {
+        background: var(--rouge);
+        color: white;
+        text-align: center;
+    }
+    .cta h2 {
+        font-size: 40px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+    .cta p {
+        margin-bottom: 25px;
+        font-size: 18px;
+    }
+    .cta .button {
+        background: white;
+        color: var(--noir);
+    }
+    /* =========================
+       FOOTER
+    ========================= */
+    footer {
+        background: var(--noir);
+        color: white;
+        padding: 55px 25px 25px;
+    }
+    .footer-grid {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 50px;
+    }
+    .footer-title {
+        font-size: 18px;
+        margin-bottom: 18px;
+    }
+    footer p,
+    footer li {
+        color: #aaa;
+        font-size: 14px;
+    }
+    footer ul {
+        list-style: none;
+    }
+    footer li {
+        margin-bottom: 9px;
+    }
+    footer a:hover {
+        color: var(--rouge);
+    }
+    .footer-bottom {
+        max-width: 1200px;
+        margin: 40px auto 0;
+        padding-top: 20px;
+        border-top: 1px solid #292929;
+        text-align: center;
+        color: #777;
+        font-size: 12px;
+    }
+    /* =========================
+       MOBILE
+    ========================= */
+    @media (max-width: 900px) {
+        nav {
+            display: none;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: var(--noir);
+            flex-direction: column;
+            padding: 25px;
+            gap: 20px;
+        }
+        nav.open {
+            display: flex;
+        }
+        .menu-button {
+            display: block;
+        }
+        .teams-grid,
+        .news-list {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .matches-grid {
+            grid-template-columns: 1fr;
+        }
+        .footer-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    @media (max-width: 600px) {
+        .navbar {
+            height: 70px;
+        }
+        nav {
+            top: 70px;
+        }
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+        }
+        .logo-text strong {
+            font-size: 16px;
+        }
+        .hero {
+            min-height: 620px;
+        }
+        .hero h1 {
+            font-size: 48px;
+        }
+        .hero p {
+            font-size: 17px;
+        }
+        section {
+            padding: 55px 18px;
+        }
+        .section-title {
+            font-size: 30px;
+        }
+        .teams-grid,
+        .news-list {
+            grid-template-columns: 1fr;
+        }
+        .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        .cta h2 {
+            font-size: 30px;
+        }
+    }
+</style>
+</head>
+<body>
+<!-- =========================
+     HEADER
+========================= -->
+<header>
+    <div class="navbar">
+    <a href="#" class="logo">
+        <div class="logo-icon">🤾</div>
+        <div class="logo-text">
+            <strong>SPORTING VILLETTE</strong>
+            <span>HANDBALL</span>
+        </div>
+    </a>
+    <nav id="menu">
+        <a href="#accueil" class="active">Accueil</a>
+        <a href="#club">Le club</a>
+        <a href="#equipes">Nos équipes</a>
+        <a href="#calendriers">Calendriers</a>
+        <a href="#actualites">Actualités</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <div class="menu-button" onclick="toggleMenu()">
+        ☰
+    </div>
+</div>
+</header>
+<!-- =========================
+     HERO
+========================= -->
+<section class="hero" id="accueil">
+<div class="hero-content">
+    <div class="hero-label">
+        Club de handball — Villette-d'Anthon
+    </div>
+    <h1>
+        Sporting<br>
+        <span>Villette</span>
+    </h1>
+    <p>
+        Un club, une passion, une équipe.
+        Retrouvez toutes les équipes du Sporting Villette
+        et leurs prochains matchs.
+    </p>
+    <div class="hero-buttons">
+        <a href="#equipes" class="button button-red">
+            Nos équipes
+        </a>
+        <a href="#calendriers" class="button button-outline">
+            Voir les calendriers
+        </a>
+    </div>
+</div>
+</section>
+<!-- =========================
+     EQUIPES
+========================= -->
+<section class="teams" id="equipes">
+<div class="container">
+    <div class="section-header">
+        <h2 class="section-title">Nos équipes</h2>
+        <p class="section-subtitle">
+            Du plus petit au plus grand, le handball pour tous !
+        </p>
+    </div>
+    <div class="teams-grid">
+        <div class="team-card">
+            <div class="team-image"></div>
+            <div class="team-content">
+                <h3>Seniors</h3>
+                <p>Retrouvez les matchs et résultats de notre équipe Seniors.</p>
+                <a href="#" class="team-button">
+                    Voir le calendrier →
+                </a>
+            </div>
+        </div>
+        <div class="team-card">
+            <div class="team-image"></div>
+            <div class="team-content">
+                <h3>Seniors 2</h3>
+                <p>Le calendrier et les résultats de l'équipe Seniors 2.</p>
+                <a href="#" class="team-button">
+                    Voir le calendrier →
+                </a>
+            </div>
+        </div>
+        <div class="team-card">
+            <div class="team-image"></div>
+            <div class="team-content">
+                <h3>Féminines</h3>
+                <p>Découvrez les prochaines rencontres de notre équipe féminine.</p>
+                <a href="#" class="team-button">
+                    Voir le calendrier →
+                </a>
+            </div>
+        </div>
+        <div class="team-card">
+            <div class="team-image"></div>
+            <div class="team-content">
+                <h3>U18</h3>
+                <p>Les prochains matchs et résultats de nos U18.</p>
+                <a href="#" class="team-button">
+                    Voir le calendrier →
+                </a>
+            </div>
+        </div>
+        <div class="team-card">
+            <div class="team-image"></div>
+            <div class="team-content">
+                <h3>U15</h3>
+                <p>Retrouvez toutes les rencontres de notre équipe U15.</p>
+                <a href="#" class="team-button">
+                    Voir le calendrier →
+                </a>
+            </div>
+        </div>
+        <div class="team-card">
+            <div class="team-image"></div>
+            <div class="team-content">
+                <h3>U13</h3>
+                <p>Le calendrier et les actualités de nos jeunes U13.</p>
+                <a href="#" class="team-button">
+                    Voir le calendrier →
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<!-- =========================
+     CALENDRIERS / MATCHS
+========================= -->
+<section class="matches" id="calendriers">
+<div class="container">
+    <div class="matches-grid">
+        <div>
+            <div class="section-header">
+                <h2 class="section-title">Prochains matchs</h2>
+                <p class="section-subtitle">
+                    Les prochaines rencontres du Sporting Villette.
+                </p>
+            </div>
+            <div class="match-list">
+                <div class="match">
+                    <div class="match-date">
+                        <strong>26</strong>
+                        <span>Avr</span>
+                    </div>
+                    <div class="match-info">
+                        <strong>Sporting Villette</strong>
+                        <span>À domicile — 20h30</span>
+                    </div>
+                    <div class="match-team">
+                        SENIORS
+                    </div>
+                </div>
+                <div class="match">
+                    <div class="match-date">
+                        <strong>27</strong>
+                        <span>Avr</span>
+                    </div>
+                    <div class="match-info">
+                        <strong>Sporting Villette</strong>
+                        <span>À domicile — 16h00</span>
+                    </div>
+                    <div class="match-team">
+                        FÉMININES
+                    </div>
+                </div>
+                <div class="match">
+                    <div class="match-date">
+                        <strong>03</strong>
+                        <span>Mai</span>
+                    </div>
+                    <div class="match-info">
+                        <strong>Sporting Villette</strong>
+                        <span>À l'extérieur — 18h00</span>
+                    </div>
+                    <div class="match-team">
+                        U18
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="section-header">
+                <h2 class="section-title">Calendriers</h2>
+                <p class="section-subtitle">
+                    Accédez directement au calendrier de votre équipe.
+                </p>
+            </div>
+            <a href="#" class="button button-red" style="margin-bottom:10px;">
+                Calendrier Seniors
+            </a>
+            <br>
+            <a href="#" class="button button-red" style="margin-bottom:10px;">
+                Calendrier Féminines
+            </a>
+            <br>
+            <a href="#" class="button button-red">
+                Tous les calendriers
+            </a>
+        </div>
+    </div>
+</div>
+</section>
+<!-- =========================
+     ACTUALITES
+========================= -->
+<section class="news" id="actualites">
+<div class="container">
+    <div class="section-header">
+        <h2 class="section-title">Actualités du club</h2>
+        <p class="section-subtitle">
+            La vie du Sporting Villette.
+        </p>
+    </div>
+    <div class="news-list">
+        <article class="news-card">
+            <div class="news-image"></div>
+            <div class="news-content">
+                <div class="news-date">
+                    12 avril 2025
+                </div>
+                <h3>
+                    Les 10 ans du Sporting Villette !
+                </h3>
+                <p>
+                    Retour sur la grande fête des 10 ans du club
+                    et un moment important de l'histoire du Sporting Villette.
+                </p>
+            </div>
+        </article>
+        <article class="news-card">
+            <div class="news-image"></div>
+            <div class="news-content">
+                <div class="news-date">
+                    2 avril 2025
+                </div>
+                <h3>
+                    Les stages du Sporting Villette
+                </h3>
+                <p>
+                    Retrouvez toutes les informations concernant
+                    les prochains stages organisés par le club.
+                </p>
+            </div>
+        </article>
+        <article class="news-card">
+            <div class="news-image"></div>
+            <div class="news-content">
+                <div class="news-date">
+                    28 mars 2025
+                </div>
+                <h3>
+                    Belle victoire des Seniors !
+                </h3>
+                <p>
+                    Bravo à notre équipe Seniors pour cette belle
+                    performance et merci aux supporters !
+                </p>
+            </div>
+        </article>
+    </div>
+</div>
+</section>
+<!-- =========================
+     CONTACT / CTA
+========================= -->
+<section class="cta" id="club">
+<div class="container">
+    <h2>Envie de rejoindre le club ?</h2>
+    <p>
+        Joueur, parent, bénévole ou partenaire :
+        venez partager l'aventure Sporting Villette.
+    </p>
+    <a href="#contact" class="button">
+        Nous contacter
+    </a>
+</div>
+</section>
+<!-- =========================
+     FOOTER
+========================= -->
+<footer id="contact">
+<div class="footer-grid">
+    <div>
+        <div class="logo" style="margin-bottom:20px;">
+            <div class="logo-icon">
+                🤾
+            </div>
+            <div class="logo-text">
+                <strong>SPORTING VILLETTE</strong>
+                <span>HANDBALL</span>
+            </div>
+        </div>
+        <p>
+            Un club, une passion, une équipe.
+        </p>
+    </div>
+    <div>
+        <h3 class="footer-title">
+            Contact
+        </h3>
+        <ul>
+            <li>📍 Villette-d'Anthon</li>
+            <li>📧 contact@sportingvillette.fr</li>
+            <li>📞 06 00 00 00 00</li>
+        </ul>
+    </div>
+    <div>
+        <h3 class="footer-title">
+            Navigation
+        </h3>
+        <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#equipes">Nos équipes</a></li>
+            <li><a href="#calendriers">Calendriers</a></li>
+            <li><a href="#actualites">Actualités</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</div>
+<div class="footer-bottom">
+    © 2026 Sporting Villette Handball — Tous droits réservés.
+</div>
+</footer>
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu");
+        menu.classList.toggle("open");
+    }
+</script>
+</body>
+</html>
